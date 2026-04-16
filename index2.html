@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <title>Piekļuve kartei</title>
+
+  <style>
+    :root {
+      --green: #2f6b3f;
+      --green-dark: #214d2d;
+      --green-light: #e8f2eb;
+      --text: #1f2933;
+      --muted: #64748b;
+      --border: #d6e2d9;
+      --error: #b91c1c;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        linear-gradient(rgba(232, 242, 235, 0.88), rgba(232, 242, 235, 0.88)),
+        radial-gradient(circle at top left, #b7d7bd 0, transparent 35%),
+        radial-gradient(circle at bottom right, #d4e8d8 0, transparent 35%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 430px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(33, 77, 45, 0.15);
+      padding: 34px;
+    }
+
+    .logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background: var(--green-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 22px;
+    }
+
+    .logo svg {
+      width: 36px;
+      height: 36px;
+      fill: var(--green);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 28px;
+      line-height: 1.2;
+      color: var(--green-dark);
+    }
+
+    .description {
+      margin: 0 0 26px;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .password-row {
+      position: relative;
+    }
+
+    input {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 46px 14px 14px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    input:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 4px rgba(47, 107, 63, 0.12);
+    }
+
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 13px;
+      padding: 6px;
+    }
+
+    .submit-button {
+      width: 100%;
+      margin-top: 18px;
+      border: 0;
+      border-radius: 12px;
+      padding: 14px 18px;
+      background: var(--green);
+      color: var(--white);
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.05s ease;
+    }
+
+    .submit-button:hover {
+      background: var(--green-dark);
+    }
+
+    .submit-button:active {
+      transform: translateY(1px);
+    }
+
+    .error-message {
+      display: none;
+      margin-top: 14px;
+      color: var(--error);
+      background: #fee2e2;
+      border: 1px solid #fecaca;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .footer-note {
+      margin-top: 22px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 480px) {
+      .login-card {
+        padding: 26px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="login-card">
+    <div class="logo" aria-hidden="true">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2C8.5 5.2 5.5 9.1 5.5 13.1A6.5 6.5 0 0 0 12 19.6a6.5 6.5 0 0 0 6.5-6.5C18.5 9.1 15.5 5.2 12 2Zm0 15.5a4.4 4.4 0 0 1-4.4-4.4c0-2.4 1.7-5.2 4.4-8 2.7 2.8 4.4 5.6 4.4 8A4.4 4.4 0 0 1 12 17.5Z"/>
+      </svg>
+    </div>
+
+    <h1>Piekļuve kartei</h1>
+
+    <p class="description">
+      Lai atvērtu kooperatīva karti, ievadiet piekļuves paroli.
+    </p>
+
+    <form id="passwordForm">
+      <label for="passwordInput">Parole</label>
+
+      <div class="password-row">
+        <input
+          type="password"
+          id="passwordInput"
+          autocomplete="current-password"
+          placeholder="Ievadiet paroli"
+          autofocus
+        />
+        <button type="button" class="toggle-password" id="togglePassword">
+          Rādīt
+        </button>
+      </div>
+
+      <button type="submit" class="submit-button">
+        Atvērt karti
+      </button>
+
+      <div class="error-message" id="errorMessage">
+        Nepareiza parole. Lūdzu, mēģiniet vēlreiz.
+      </div>
+    </form>
+
+    <p class="footer-note">
+      Piekļuve paredzēta tikai personām, kurām ir nodota parole.
+    </p>
+  </main>
+
+  <script>
+    // Šeit nomaini paroli
+    const CORRECT_PASSWORD = "mpks26";
+
+    // Šeit nomaini īstās kartes saiti
+    const MAP_URL = "correctkjhg76g.html";
+
+    const form = document.getElementById("passwordForm");
+    const passwordInput = document.getElementById("passwordInput");
+    const errorMessage = document.getElementById("errorMessage");
+    const togglePassword = document.getElementById("togglePassword");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const enteredPassword = passwordInput.value.trim();
+
+      if (enteredPassword === CORRECT_PASSWORD) {
+        sessionStorage.setItem("mapAccessGranted", "true");
+        window.location.href = MAP_URL;
+      } else {
+        errorMessage.style.display = "block";
+        passwordInput.value = "";
+        passwordInput.focus();
+      }
+    });
+
+    togglePassword.addEventListener("click", function () {
+      const isPassword = passwordInput.type === "password";
+
+      passwordInput.type = isPassword ? "text" : "password";
+      togglePassword.textContent = isPassword ? "Slēpt" : "Rādīt";
+      passwordInput.focus();
+    });
+  </script>
+</body>
+</html>
